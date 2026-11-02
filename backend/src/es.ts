@@ -35,7 +35,7 @@ export async function initEs() {
       });
     }
   } catch (e) {
-    console.warn('[es] unavailable:', (e as Error).message);
+    console.warn('[es] unavailable:', e);
   }
 }
 
@@ -72,3 +72,4 @@ export async function searchEmails(userId: number, q: string) {
   });
   return r.hits.hits.map((h) => h._source);
 }
+
