@@ -10,6 +10,9 @@ const client = () =>
 export const authRouter = Router();
 
 authRouter.get('/google', (_req, res) => {
+  if (!config.googleClientId || !config.googleClientSecret) {
+    return res.redirect(`${config.frontendUrl}/login?error=google_not_configured`);
+  }
   res.redirect(client().generateAuthUrl({ scope: ['openid', 'email', 'profile'], prompt: 'select_account' }));
 });
 
