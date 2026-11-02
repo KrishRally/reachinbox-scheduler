@@ -13,9 +13,11 @@ export async function ensureSenders(): Promise<Sender[]> {
   for (let i = rows.length; i < config.senderCount; i++) {
     const a = await nodemailer.createTestAccount();
     await pool.query(
-      'insert into senders(email, smtp_user, smtp_pass, host, port) values ($1,$2,$3,$4,$5)',
+      `insert into senders(email, smtp_user, smtp_pass, host, port) values ($1,$2,$3,$4,$5)
+       on conflict (email) do nothing`,
       [a.user, a.user, a.pass, a.smtp.host, a.smtp.port],
     );
   }
   return (await pool.query('select id, email from senders order by id')).rows;
 }
+
