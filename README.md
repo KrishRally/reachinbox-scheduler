@@ -70,4 +70,3 @@ Keep production credentials in the host's environment variable settings; never c
 - If a worker crashes after SMTP accepted but before the DB update, the email can be re-sent after the 2-minute reclaim (at-least-once edge case).
 - Rate-limited jobs wait until the next clock-hour boundary, not a rolling 60 minutes.
 - Slack webhook URL is stored in plain text in Postgres.
-
